@@ -8,7 +8,9 @@ Author URI: https://edadams.io
 License: GPL2
 */
 function wickedcf_register_shortcode() {
+	ob_start();
 	include( 'templates/form-markup.php' );
+	return ob_get_clean();
 }
 add_shortcode( 'wicked_contact_form', 'wickedcf_register_shortcode' );
 
@@ -61,6 +63,7 @@ function wickedcf_settings_recaptcha_secret_get() {
 
 
 function wickedcf_if_no_keys() {
+    $wickedcf_settings = get_option( 'wickedcf_settings' );
 	if( empty( $wickedcf_settings['recaptcha_site'] ) || empty( $wickedcf_settings['recaptcha_site'] ) ){
 	    ?>
 	    <div class="notice notice-error">
