@@ -23,6 +23,6 @@ I always intended but never got around to "de-coupling" the template file from t
 
 ## (Potential) roadmap
 
-[ ] Set any email address for form submissions to be sent to, currently defaults to the root (user ID: 1) account's email address
-[ ] Allow overriding of template (shortcode output) with one in the current theme's directory, a la WooCommerce
-[ ] Break out the JS into its own file
+- [ ] Set any email address for form submissions to be sent to, currently defaults to the root (user ID: 1) account's email address
+- [ ] Allow overriding of template (shortcode output) with one in the current theme's directory, a la WooCommerce
+- [ ] Break out the JS into its own file
