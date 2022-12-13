@@ -37,7 +37,7 @@ if( empty( $recaptchaSite ) || empty( $recaptchaSecret ) ){
     event.preventDefault();
 
     grecaptcha.ready(function() {
-      grecaptcha.execute( $recaptchaSite, {action: 'submit'}).then(function(token) {
+      grecaptcha.execute( '<?php echo $recaptchaSite; ?>', {action: 'submit'}).then(function(token) {
         let tokenEl = document.createElement( 'input' );
         tokenEl.setAttribute( 'type', 'hidden' );
         tokenEl.setAttribute( 'name', 'recaptchaToken' );
