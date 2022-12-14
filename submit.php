@@ -45,10 +45,12 @@ if( $email && !filter_var( $email, FILTER_VALIDATE_EMAIL ) ){
 	array_push( $errors, 'invalid_email' );
 }
 
+$wickedcf_settings = get_option( 'wickedcf_settings' );
+$recipent_email_address = $wickedcf_settings['email_address'];
+
 $mail_content = "<h2>Contact form submission</h2><dl><dt>Name:</dt><dd>" . $name . "</dd><dt>Email:</dt><dd>" . $email . "</dd><dt>Phone:</dt><dd>" . $phone . "</dd><dt>Message:</dt><dd>" . $message . "</dd></dl><p><small>This email was sent via the " . get_bloginfo( 'title' ) . " contact form. " . date( 'g:i a, jS M Y' ) . "</small></p>";
 
-$mail_headers = 'From: edadams101@gmail.com' . "\r\n" .
-    'Content-Type: text/html; charset=UTF-8';
+$mail_headers = 'Content-Type: text/html; charset=UTF-8';
 
 if( !empty( $errors ) ){
 	$response = array(
@@ -60,7 +62,7 @@ if( !empty( $errors ) ){
 		'success' => true
 	);
 
-	wp_mail( 'edadams101@gmail.com', 'Contact form submission', $mail_content, $mail_headers );
+	wp_mail( $recipent_email_address, 'Contact form submission', $mail_content, $mail_headers );
 }
 
 header('Content-Type: application/json');
