@@ -23,6 +23,6 @@ I always intended but never got around to "de-coupling" the template file from t
 
 ## (Potential) roadmap
 
-- [ ] Set any email address for form submissions to be sent to, currently defaults to the root (user ID: 1) account's email address
+- [x] Set any email address for form submissions to be sent to - implemented and works, form fields on Admin view are in the wrong order and I don't know why. Also should default to root user (id 1)'s email, not sure if it does
 - [ ] Allow overriding of template (shortcode output) with one in the current theme's directory, a la WooCommerce
 - [ ] Break out the JS into its own file
