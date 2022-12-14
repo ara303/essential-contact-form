@@ -1,7 +1,7 @@
 <?php
 /* Plugin Name: Wicked Contact Form
 Plugin URI: https://github.com/edadams/wickedcontactform
-Description: A contact form plugin that does everything you need, nothing you don't. 😎
+Description: A contact form plugin with just the essentials.
 Version: 1
 Author: E. Adams
 Author URI: https://edadams.io
@@ -39,6 +39,9 @@ function wickedcf_settings_page() {
 
 function wickedcf_register_settings() {
 	register_setting( 'wickedcf_settings', 'wickedcf_settings', 'wickedcf_settings_validate' );
+	add_settings_section( 'wickedcf_settings_email', 'Submissions', 'wickedcf_settings_email_get', __FILE__ );
+	add_settings_field( 'email_address', 'Recipient email address', 'wickedcf_settings_email_address_get', __FILE__, 'wickedcf_settings_recaptcha' );
+	
 	add_settings_section( 'wickedcf_settings_recaptcha', 'reCAPTCHA v3 keys', 'wickedcf_settings_recaptcha_get', __FILE__ );
 	add_settings_field( 'recaptcha_site', 'Site key', 'wickedcf_settings_recaptcha_site_get', __FILE__, 'wickedcf_settings_recaptcha' );
 	add_settings_field( 'recaptcha_secret', 'Secret key', 'wickedcf_settings_recaptcha_secret_get', __FILE__, 'wickedcf_settings_recaptcha' );
@@ -49,6 +52,17 @@ function wickedcf_settings_recaptcha_get() {
 	?>
 	<p>Generate site and secret keys on <a href="https://www.google.com/recaptcha/admin/create" target="_new" rel="nofollow">reCAPTCHA admin console</a>. You must choose <strong>reCAPTCHA v3</strong>. Domain name: <kbd><?php echo $_SERVER['SERVER_NAME']; ?></kbd>.</p>
 	<?php
+}
+
+function wickedcf_settings_email_get() {
+	?>
+	<p>The email address to which form submissions are sent.</p>
+	<?php
+}
+
+function wickedcf_settings_email_address_get() {
+    $settings = get_option( 'wickedcf_settings' );
+	echo '<input id="email_address" name="wickedcf_settings[email_address]" type="text" value="' . $settings['email_address'] . '" style="width: 100%; max-width: 600px;">';
 }
 
 function wickedcf_settings_recaptcha_site_get() {
@@ -78,6 +92,7 @@ add_action( 'admin_notices', 'wickedcf_if_no_keys' );
 
 function wickedcf_settings_defaults() {
     $wickedcf_settings_defaults = [
+    	'email_address' => get_userdata( 1 )->user_email,
     	'recaptcha_site' => '',
     	'recaptcha_secret' => ''
     ];
